@@ -34,7 +34,7 @@ class StateMachine implements StateMachineInterface
      *
      * @var array
      */
-    protected $states = array();
+    public $states = array();
 
     /**
      * The available transitions
