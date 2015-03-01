@@ -43,27 +43,20 @@ class CallbackHandler
                 'exclude_to'   => array(),
             )
         );
-        $this->specResolver->setAllowedTypes(
-            array(
-                'on'           => array('string', 'array'),
-                'from'         => array('string', 'array'),
-                'to'           => array('string', 'array'),
-                'exclude_from' => array('string', 'array'),
-                'exclude_to'   => array('string', 'array'),
-            )
-        );
+
+        $this->specResolver->setAllowedTypes('on', ['string', 'array']);
+        $this->specResolver->setAllowedTypes('from', ['string', 'array']);
+        $this->specResolver->setAllowedTypes('to', ['string', 'array']);
+        $this->specResolver->setAllowedTypes('exclude_from', ['string', 'array']);
+        $this->specResolver->setAllowedTypes('exclude_to', ['string', 'array']);
+
         $toArrayNormalizer = function (Options $options, $value) {
             return (array) $value;
         };
-        $this->specResolver->setNormalizers(
-            array(
-                'on'           => $toArrayNormalizer,
-                'from'         => $toArrayNormalizer,
-                'to'           => $toArrayNormalizer,
-                'exclude_to'   => $toArrayNormalizer,
-                'exclude_from' => $toArrayNormalizer,
-            )
-        );
+
+        foreach (['on', 'from', 'to', 'exclude_to', 'exclude_from'] as $value) {
+            $this->specResolver->setNormalizer($value, $toArrayNormalizer);
+        }
     }
 
     /**
